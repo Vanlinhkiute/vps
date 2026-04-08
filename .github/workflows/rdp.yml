@@ -19,9 +19,9 @@ jobs:
         run: |
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-          New-LocalUser "admin" -Password (ConvertTo-SecureString "WindowsRDP2026@" -AsPlainText -Force) -FullName "DucThangxTrueHieu"
-          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "DucThangxTrueHieu"
-          Add-LocalGroupMember -Group "Administrators" -Member "DucThangxTrueHieu"
+          New-LocalUser "admin" -Password (ConvertTo-SecureString "WindowsRDP2026@" -AsPlainText -Force) -FullName "admin"
+          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "admin"
+          Add-LocalGroupMember -Group "Administrators" -Member "admin"
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
 
       - name: Siêu Tối Ưu RDP cho XEM VIDEO 120 FPS SIÊU MƯỢT + Music + Mạng YẾU + Eco Mode
