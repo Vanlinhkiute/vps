@@ -1,4 +1,4 @@
-name: RdpByDucThengTechDz-Admin-SuperOptimized-24h-Video120FPS-SuperSmooth-Eco
+name: RDP by DucThang x TrueHieu (Ver Fix)
 
 on:
   workflow_dispatch:
@@ -19,9 +19,9 @@ jobs:
         run: |
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-          New-LocalUser "DucthengTechDz" -Password (ConvertTo-SecureString "W1nd0ws-P4ssw0rd-2025!" -AsPlainText -Force) -FullName "DucthengTechDz"
-          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "DucthengTechDz"
-          Add-LocalGroupMember -Group "Administrators" -Member "DucthengTechDz"
+          New-LocalUser "admin" -Password (ConvertTo-SecureString "WindowsRDP2026@" -AsPlainText -Force) -FullName "DucThangxTrueHieu"
+          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "DucThangxTrueHieu"
+          Add-LocalGroupMember -Group "Administrators" -Member "DucThangxTrueHieu"
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
 
       - name: Siêu Tối Ưu RDP cho XEM VIDEO 120 FPS SIÊU MƯỢT + Music + Mạng YẾU + Eco Mode
@@ -71,8 +71,8 @@ jobs:
           Write-Host "======================================================================"
           Write-Host "         RDP XEM VIDEO MAX 120 FPS SIÊU MƯỢT - 24 TIẾNG (DucthengTechDz)"
           Write-Host "======================================================================"
-          Write-Host "Username : DucthengTechDz"
-          Write-Host "Password : W1nd0ws-P4ssw0rd-2025!"
+          Write-Host "Username : admin"
+          Write-Host "Password : WindowsRDP2026@"
           Write-Host "Tunnel   : Bore (Vui lòng kiểm tra log bên dưới để lấy địa chỉ kết nối)"
           Write-Host "Thời gian: CHẠY ĐÚNG 24 TIẾNG (1 NGÀY) rồi TỰ ĐỘNG TẮT"
           Write-Host "✅ Xem YouTube / Netflix / Phim / Live Stream MAX 120 FPS - SIÊU MƯỢT"
