@@ -2,15 +2,6 @@ name: RdpByDucThengTechDz-Admin-SuperOptimized-24h-Video120FPS-SuperSmooth-Eco
 
 on:
   workflow_dispatch:
-    inputs:
-      ngrok_download_url:
-        description: 'Paste ngrok Windows (amd64) ZIP direct download link'
-        required: true
-        default: 'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip'
-      ngrok_region:
-        description: 'Chọn region ngrok (ap = Singapore - khuyến nghị mạnh, auto, jp, in...)'
-        required: false
-        default: 'ap'
 
 jobs:
   build:
@@ -18,15 +9,11 @@ jobs:
     timeout-minutes: 1450   # 24 tiếng + 10 phút buffer
 
     steps:
-      - name: Download and Extract ngrok
+      - name: Download and Extract Bore
         run: |
-          Invoke-WebRequest -Uri "${{ github.event.inputs.ngrok_download_url }}" -OutFile ngrok.zip
-          Expand-Archive ngrok.zip -DestinationPath ngrok
-
-      - name: Authenticate ngrok
-        env:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-        run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+          # Tải bản Bore mới nhất cho Windows
+          Invoke-WebRequest -Uri "https://github.com/ekzhang/bore/releases/download/v0.5.1/bore-v0.5.1-x86_64-pc-windows-msvc.zip" -OutFile bore.zip
+          Expand-Archive bore.zip -DestinationPath bore
 
       - name: Enable RDP + Create Admin User
         run: |
@@ -79,29 +66,31 @@ jobs:
 
           Write-Host "Đã áp dụng SIÊU TỐI ƯU VIDEO MAX 120 FPS: Xem video siêu mượt cực mạnh - Không giật lag + Nhạc không rè"
 
-      - name: Start RDP Tunnel (Singapore Optimized - Tự động tắt sau 24 tiếng)
+      - name: Start RDP Tunnel with Bore (Tự động tắt sau 24 tiếng)
         run: |
           Write-Host "======================================================================"
           Write-Host "         RDP XEM VIDEO MAX 120 FPS SIÊU MƯỢT - 24 TIẾNG (DucthengTechDz)"
           Write-Host "======================================================================"
           Write-Host "Username : DucthengTechDz"
           Write-Host "Password : W1nd0ws-P4ssw0rd-2025!"
-          Write-Host "Region   : ${{ github.event.inputs.ngrok_region }} (Singapore = ap)"
+          Write-Host "Tunnel   : Bore (Vui lòng kiểm tra log bên dưới để lấy địa chỉ kết nối)"
           Write-Host "Thời gian: CHẠY ĐÚNG 24 TIẾNG (1 NGÀY) rồi TỰ ĐỘNG TẮT"
           Write-Host "✅ Xem YouTube / Netflix / Phim / Live Stream MAX 120 FPS - SIÊU MƯỢT"
           Write-Host "✅ Không giật lag + Nhạc Foobar2000/AIMP không rè"
           Write-Host "✅ Mạng điện thoại yếu vẫn ổn + Eco Mode tiết kiệm"
           Write-Host "======================================================================"
-          Write-Host "Kết nối RDP → Mở YouTube / Netflix / Video 4K thoải mái!"
+          Write-Host "Đang mở cổng kết nối qua Bore..."
 
-          # Khởi động ngrok và tự động tắt sau đúng 24 tiếng
-          $ngrokProcess = Start-Process -FilePath ".\ngrok\ngrok.exe" `
-            -ArgumentList "tcp 3389 --region=${{ github.event.inputs.ngrok_region }} --log=stdout" `
+          # Khởi động bore và tự động tắt sau đúng 24 tiếng
+          $boreProcess = Start-Process -FilePath ".\bore\bore.exe" `
+            -ArgumentList "local 3389 --to bore.pub" `
             -NoNewWindow -PassThru
 
-          Write-Host "Ngrok RDP đã khởi động. Sẽ tự động tắt sau đúng 24 tiếng (86400 giây)..."
+          Write-Host "Bore Tunnel đã khởi động. Xin mời đại ca check log ở dòng hiển thị 'listening at bore.pub:xxxxx' để lấy Port kết nối nhé ạ!"
+          Write-Host "Sẽ tự động tắt sau đúng 24 tiếng (86400 giây)..."
+          
           Start-Sleep -Seconds 86400
 
           # Tắt sạch
-          Stop-Process -Id $ngrokProcess.Id -Force -ErrorAction SilentlyContinue
-          Write-Host "ĐÃ TỰ ĐỘNG TẮT sau đúng 1 NGÀY - Eco Mode hoàn tất!”
+          Stop-Process -Id $boreProcess.Id -Force -ErrorAction SilentlyContinue
+          Write-Host "ĐÃ TỰ ĐỘNG TẮT sau đúng 1 NGÀY - Eco Mode hoàn tất!"
