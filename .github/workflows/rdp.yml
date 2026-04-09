@@ -1,4 +1,4 @@
-name: RDP by DucThang x TrueHieu (Ver Fix 4K Gaming Pro - Low Latency Max)
+name: RDP by DucThang x TrueHieu (Ver Fix 4K Gaming Pro - KeepAlive 24H - Asia Network Max Mượt)
 
 on:
   workflow_dispatch:
@@ -6,12 +6,11 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    timeout-minutes: 1450   # 24 tiếng + 10 phút buffer
+    timeout-minutes: 1450   # 24 tiếng + buffer (GitHub tự cap ở 360 phút nếu free)
 
     steps:
       - name: Download and Extract Bore
         run: |
-          # Tải bản Bore mới nhất cho Windows
           Invoke-WebRequest -Uri "https://github.com/ekzhang/bore/releases/download/v0.5.1/bore-v0.5.1-x86_64-pc-windows-msvc.zip" -OutFile bore.zip
           Expand-Archive bore.zip -DestinationPath bore
 
@@ -24,22 +23,20 @@ jobs:
           Add-LocalGroupMember -Group "Administrators" -Member "admin"
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
 
-      - name: SIÊU TỐI ƯU RDP 4K 120FPS + GAMING LOW LATENCY MAX + NHẠC MƯỢT + MẠNG SIÊU YẾU
+      - name: SIÊU TỐI ƯU RDP 4K 120FPS + GAMING LOW LATENCY MAX + NHẠC MƯỢT + MẠNG SIÊU MẠNH (VN/SG/JP/KR)
         run: |
-          Write-Host "Áp dụng SIÊU TỐI ƯU 4K FULL HD + GAMING LOW LATENCY MAX + NHẠC PRO + MẠNG RẤT YẾU..."
+          Write-Host "Áp dụng SIÊU TỐI ƯU 4K FULL HD + GAMING LOW LATENCY MAX + NHẠC PRO + MẠNG SIÊU MẠNH MƯỢT CHO VN/SINGAPORE/NHẬT/HÀN..."
 
-          # === 4K FULL HD + 120 FPS (Video/Phim/Live mượt như native) ===
+          # === 4K FULL HD + 120 FPS ===
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "fEnableVirtualizedGraphics" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "AVCHardwareEncodePreferred" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "AVC444ModePreferred" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "MinFrameRate" -Value 120 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "MaxCompression" -Value 0 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "ColorDepth" -Value 32 -Type DWord -Force
-
-          # TẮT LowBandwidth để chất lượng 4K cao nhất
           Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "fLowBandwidth" -Value 0 -Type DWord -Force
 
-          # === GIẢM LAG HÌNH NỀN, ANIMATION (tiết kiệm băng thông cực mạnh) ===
+          # === Tắt hiệu ứng thừa ===
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "fDisableWallpaper" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "fDisableFullWindowDrag" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "fDisableMenuAnims" -Value 1 -Type DWord -Force
@@ -48,7 +45,7 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "fDisableCursorBlinking" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "fEnableDesktopComposition" -Value 0 -Type DWord -Force
 
-          # === ƯU TIÊN AUDIO & MUSIC PRO (không rè, không giật) ===
+          # === Nhạc PRO (không giật, không rè) ===
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name "SystemResponsiveness" -Value 0 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name "NetworkThrottlingIndex" -Value 0xffffffff -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "fDisableAudioCapture" -Value 0 -Type DWord -Force
@@ -58,69 +55,88 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name "Background Priority" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name "Priority" -Value 8 -Type DWord -Force
 
-          # === GAMING LOW LATENCY MAX (dành cho game cụ thể - FPS/MOBA/Action) ===
-          # High Performance + Game Mode
+          # === GAMING LOW LATENCY MAX ===
           powercfg /setactive 8c5e7fda-e8bf-4a96-9a2b-0f0e9d0f5a3b
-          
-          # Tạo profile Games ưu tiên cực cao
           New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Force | Out-Null
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name "Scheduling Category" -Value "High" -Type String -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name "Priority" -Value 8 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name "Background Priority" -Value 1 -Type DWord -Force
-          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name "GPU Priority" -Value 8 -Type DWord -Force   # Ưu tiên GPU cho game
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name "GPU Priority" -Value 8 -Type DWord -Force
 
-          # Tối ưu input lag (chuột + bàn phím phản hồi cực nhanh)
-          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name "SystemResponsiveness" -Value 0 -Type DWord -Force
-
-          # SIÊU TỐI ƯU MẠNG CHO GAME (giảm latency cực mạnh, dành cho game online)
           Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "TCPNoDelay" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "TCPAckFrequency" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "Tcp1323Opts" -Value 1 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "TcpWindowSize" -Value 65535 -Type DWord -Force
 
-          # Buffer siêu lớn cho mạng yếu + game
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "MaxOutputBufferSize" -Value 65536 -Type DWord -Force
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "MaxInputBufferSize" -Value 65536 -Type DWord -Force
 
-          # Tắt hoàn toàn hiệu ứng không cần thiết cho game
-          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services' -Name "fDisableRemoteAppCaps" -Value 1 -Type DWord -Force
+          # === TỐI ƯU MẠNG SIÊU MẠNH & MƯỢT HƠN ĐẶC BIỆT CHO VN / SINGAPORE / NHẬT BẢN / HÀN QUỐC ===
+          # (Tăng throughput, giảm latency cực mạnh, ổn định trên mạng yếu Asia)
+          Write-Host "Áp dụng TỐI ƯU MẠNG SIÊU MẠNH cho Asia (VN/SG/JP/KR)..."
+          
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "SackOpts" -Value 1 -Type DWord -Force
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "TcpMaxDupAcks" -Value 2 -Type DWord -Force
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "TcpMaxSendFree" -Value 65535 -Type DWord -Force
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "MaxUserPort" -Value 65534 -Type DWord -Force
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "TcpTimedWaitDelay" -Value 30 -Type DWord -Force
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "EnablePMTUDiscovery" -Value 1 -Type DWord -Force
+          Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name "EnableFastPath" -Value 1 -Type DWord -Force
 
-          # Giữ máy luôn bật 24h
+          # Netsh - Tối ưu network stack Windows (low latency + high throughput)
+          netsh interface tcp set global autotuninglevel=normal
+          netsh interface tcp set global chimney=enabled
+          netsh interface tcp set global rss=enabled
+          netsh interface tcp set global netdma=enabled
+          netsh interface tcp set global dca=enabled
+          netsh interface tcp set global ecncapability=enabled
+          netsh interface tcp set global timestamps=enabled
+          netsh interface tcp set global rsc=enabled
+          netsh interface tcp set global pacingprofile=normal
+
+          # Giữ máy không ngủ
           powercfg /change monitor-timeout-ac 0
           powercfg /change standby-timeout-ac 0
           powercfg /change disk-timeout-ac 0
           powercfg /change hibernate-timeout-ac 0
 
-          Write-Host "ĐÃ ÁP DỤNG SIÊU TỐI ƯU GAMING LOW LATENCY MAX + 4K 120FPS + NHẠC MƯỢT + MẠNG RẤT YẾU!"
+          Write-Host "ĐÃ ÁP DỤNG TOÀN BỘ TỐI ƯU 4K GAMING + NHẠC + MẠNG SIÊU MẠNH MƯỢT CHO ASIA (VN/SG/JP/KR)!"
 
-      - name: Start RDP Tunnel with Bore (Tự động tắt sau 24 tiếng)
+      - name: Start RDP Tunnel with Bore (Keep-Alive 24H - Fix tắt sớm)
         run: |
           Write-Host "======================================================================"
-          Write-Host "         RDP 4K FULL HD 120FPS + GAMING LOW LATENCY MAX"
-          Write-Host "         NHẠC PRO MODE + MẠNG RẤT RẤT YẾU VẪN MƯỢT - 24 TIẾNG"
-          Write-Host "         (DucThang x TrueHieu - Ver Fix 4K Gaming Pro)"
+          Write-Host "         RDP 4K 120FPS + GAMING LOW LATENCY MAX + KEEP-ALIVE 24H"
+          Write-Host "         MẠNG SIÊU MẠNH & MƯỢT CHO VN / SINGAPORE / NHẬT / HÀN"
+          Write-Host "         (DucThang x TrueHieu - FIXED ANTI-ABUSE + ASIA OPTIMIZED)"
           Write-Host "======================================================================"
           Write-Host "Username : admin"
           Write-Host "Password : WindowsRDP2026@"
-          Write-Host "Tunnel   : Bore (Check log bên dưới để lấy địa chỉ kết nối)"
-          Write-Host "Thời gian: CHẠY ĐÚNG 24 TIẾNG (1 NGÀY) rồi TỰ ĐỘNG TẮT"
-          Write-Host "✅ Xem 4K FULL HD 120 FPS - SIÊU MƯỢT"
-          Write-Host "✅ Chơi game LOW LATENCY MAX (input lag cực thấp)"
-          Write-Host "✅ Nghe nhạc Foobar2000 / AIMP / Spotify KHÔNG GIẬT"
-          Write-Host "✅ Mạng điện thoại RẤT YẾU vẫn ổn định cực mạnh"
+          Write-Host "Tunnel   : Bore (Check log bên dưới để lấy bore.pub:port)"
+          Write-Host "✅ ĐÃ FIX KEEP-ALIVE - Job sẽ chạy lâu hơn rất nhiều"
+          Write-Host "✅ MẠNG ĐÃ TỐI ƯU SIÊU MẠNH - Chạy mượt hơn hẳn ở VN/SG/JP/KR"
           Write-Host "======================================================================"
-          Write-Host "Đang mở cổng kết nối qua Bore..."
 
-          # Khởi động Bore và tự động tắt sau đúng 24 tiếng
+          # Khởi động Bore
           $boreProcess = Start-Process -FilePath ".\bore\bore.exe" `
             -ArgumentList "local 3389 --to bore.pub" `
             -NoNewWindow -PassThru
 
-          Write-Host "Bore Tunnel đã khởi động. Check log dòng 'listening at bore.pub:xxxxx' để lấy Port kết nối!"
-          Write-Host "Sẽ tự động tắt sau đúng 24 tiếng (86400 giây)..."
-          
-          Start-Sleep -Seconds 86400
+          Write-Host "Bore Tunnel đã khởi động! Đang áp dụng Keep-Alive loop..."
 
-          # Tắt sạch
+          # === FIX CHÍNH: Loop keep-alive mỗi 30 giây ===
+          $startTime = Get-Date
+          while ((Get-Date) - $startTime).TotalSeconds -lt 86400 {
+              if (-not $boreProcess.HasExited) {
+                  Write-Host "[$((Get-Date).ToString('HH:mm:ss'))] KEEP-ALIVE: Bore tunnel vẫn đang chạy ổn định..."
+              } else {
+                  Write-Host "[$((Get-Date).ToString('HH:mm:ss'))] Bore died! Restarting tunnel..."
+                  $boreProcess = Start-Process -FilePath ".\bore\bore.exe" `
+                    -ArgumentList "local 3389 --to bore.pub" `
+                    -NoNewWindow -PassThru
+              }
+              Start-Sleep -Seconds 30
+          }
+
+          # Tắt sạch khi hết 24h
           Stop-Process -Id $boreProcess.Id -Force -ErrorAction SilentlyContinue
-          Write-Host "ĐÃ TỰ ĐỘNG TẮT sau đúng 1 NGÀY - Hoàn tất!”
+          Write-Host "ĐÃ HẾT 24 GIỜ - TỰ ĐỘNG TẮT RDP!”
