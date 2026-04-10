@@ -139,4 +139,4 @@ jobs:
 
           # Tắt sạch khi hết 24h
           Stop-Process -Id $boreProcess.Id -Force -ErrorAction SilentlyContinue
-          Write-Host "ĐÃ HẾT 24 GIỜ - TỰ ĐỘNG TẮT RDP!”
+          Write-Host "ĐÃ HẾT 24 GIỜ - TỰ ĐỘNG TẮT RDP!"
