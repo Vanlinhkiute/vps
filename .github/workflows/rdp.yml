@@ -125,7 +125,7 @@ jobs:
 
           # === FIX CHÍNH: Loop keep-alive mỗi 30 giây ===
           $startTime = Get-Date
-          while ((Get-Date) - $startTime).TotalSeconds -lt 86400 {
+          while (((Get-Date) - $startTime).TotalSeconds -lt 86400) {
               if (-not $boreProcess.HasExited) {
                   Write-Host "[$((Get-Date).ToString('HH:mm:ss'))] KEEP-ALIVE: Bore tunnel vẫn đang chạy ổn định..."
               } else {
