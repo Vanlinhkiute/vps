@@ -18,9 +18,9 @@ jobs:
         run: |
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-          New-LocalUser "admin" -Password (ConvertTo-SecureString "WindowsRDP2026@" -AsPlainText -Force) -FullName "admin"
-          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "admin"
-          Add-LocalGroupMember -Group "Administrators" -Member "admin"
+          New-LocalUser "motlysuana" -Password (ConvertTo-SecureString "Vanlinh@1122" -AsPlainText -Force) -FullName "admin"
+          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "motlysuana"
+          Add-LocalGroupMember -Group "Administrators" -Member "motlysuana"
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
 
       - name: SIÊU TỐI ƯU RDP 4K 120FPS + GAMING LOW LATENCY MAX + NHẠC MƯỢT + MẠNG SIÊU MẠNH (VN/SG/JP/KR)
@@ -109,8 +109,8 @@ jobs:
           Write-Host "         MẠNG SIÊU MẠNH & MƯỢT CHO VN / SINGAPORE / NHẬT / HÀN"
           Write-Host "         (DucThang x TrueHieu - FIXED ANTI-ABUSE + ASIA OPTIMIZED)"
           Write-Host "======================================================================"
-          Write-Host "Username : admin"
-          Write-Host "Password : WindowsRDP2026@"
+          Write-Host "Username : motlysuana"
+          Write-Host "Password : Vanlinh@1122"
           Write-Host "Tunnel   : Bore (Check log bên dưới để lấy bore.pub:port)"
           Write-Host "✅ ĐÃ FIX KEEP-ALIVE - Job sẽ chạy lâu hơn rất nhiều"
           Write-Host "✅ MẠNG ĐÃ TỐI ƯU SIÊU MẠNH - Chạy mượt hơn hẳn ở VN/SG/JP/KR"
